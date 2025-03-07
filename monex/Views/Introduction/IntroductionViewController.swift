@@ -179,6 +179,9 @@ class IntroductionViewController: UIViewController {
     
     @objc func skipAction() {
         print("Go to the next screen")
+        let authenticationViewController = AuthenticationViewController()
+        self.navigationController?
+            .pushViewController(authenticationViewController, animated: true)
     }
     
 }
