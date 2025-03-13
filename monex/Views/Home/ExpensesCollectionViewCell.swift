@@ -1,7 +1,9 @@
 import UIKit
 
 
-class HomeExpensesItemCollect: ViewController {
+class ExpensesCollectionViewCell: UICollectionViewCell {
+    
+    static let identifier = "ExpensesCollectionViewCell"
     
     private var defaultExpensesImageView : UIImageView = {
         let imageView = UIImageView()
@@ -28,38 +30,43 @@ class HomeExpensesItemCollect: ViewController {
         return label
     }()
     
-    init(item: ExpensesItem, index: Int) {
-        super.init(nibName: nil, bundle: nil)
-        expensesItemLabel.text = item.title
-        pageIndex = index
-        totalExpensesLabel.text = "$\(item.totalExpenses)"
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        setupView()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupView()
+    func configure(expensesItem: ExpensesItem) {
+        expensesItemLabel.text = expensesItem.title
+        totalExpensesLabel.text = "$\(String(format: "%.2f", expensesItem.totalExpenses))"
     }
     
     private func setupView() {
-        print("setUpView")
         
-        view.addSubview(defaultExpensesImageView)
-        view.addSubview(expensesItemLabel)
-        view.addSubview(totalExpensesLabel)
+        // TODO: change background color
+        contentView.backgroundColor = .red
+        contentView.layer.cornerRadius = 10
+        contentView.clipsToBounds = true
         
-        view.backgroundColor = .white
+        contentView.addSubview(defaultExpensesImageView)
+        contentView.addSubview(expensesItemLabel)
+        contentView.addSubview(totalExpensesLabel)
         
         NSLayoutConstraint.activate(
             [
                 // default expenses image view
-                defaultExpensesImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+                defaultExpensesImageView.topAnchor
+                    .constraint(
+                        equalTo: contentView.topAnchor,
+                        constant: 20
+                    ),
                 defaultExpensesImageView.leadingAnchor
                     .constraint(
-                        equalTo: view.safeAreaLayoutGuide.leadingAnchor,
+                        equalTo: contentView.leadingAnchor,
                         constant: 20
                     ),
                 defaultExpensesImageView.widthAnchor.constraint(equalToConstant: 24),
@@ -73,7 +80,7 @@ class HomeExpensesItemCollect: ViewController {
                     ),
                 expensesItemLabel.leadingAnchor
                     .constraint(
-                        equalTo: view.safeAreaLayoutGuide.leadingAnchor,
+                        equalTo: contentView.leadingAnchor,
                         constant: 20
                     ),
                 
@@ -85,7 +92,7 @@ class HomeExpensesItemCollect: ViewController {
                     ),
                 totalExpensesLabel.leadingAnchor
                     .constraint(
-                        equalTo: view.safeAreaLayoutGuide.leadingAnchor,
+                        equalTo: contentView.leadingAnchor,
                         constant: 20
                     )
             ]

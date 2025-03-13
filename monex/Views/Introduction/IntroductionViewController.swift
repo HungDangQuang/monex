@@ -179,9 +179,22 @@ class IntroductionViewController: UIViewController {
     
     @objc func skipAction() {
         print("Go to the next screen")
-        let authenticationViewController = AuthenticationViewController()
-        self.navigationController?
-            .pushViewController(authenticationViewController, animated: true)
+        // TODO: revert old code
+//        let authenticationViewController = AuthenticationViewController()
+//        self.navigationController?
+//            .pushViewController(authenticationViewController, animated: true)
+        
+        
+//        let homeViewController = HomeViewController()
+//        self.navigationItem.hidesBackButton = true
+//        self.navigationController?.navigationBar.isUserInteractionEnabled = false
+//        self.navigationController?.navigationBar.tintColor = .black
+//        self.navigationController?.navigationBar.isHidden = true
+//        self.navigationController?
+//            .pushViewController(homeViewController, animated: true)
+        
+        let customTabBarController = CustomTabBarController()
+        self.navigationController?.pushViewController(customTabBarController, animated: true)
     }
     
 }
